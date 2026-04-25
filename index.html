@@ -115,68 +115,62 @@
                         
                       <h2>音乐</h2>
 
-                                            <!-- 音频元素（标准写法） -->
-                                            <audio id="bgm" loop>
-                                              <source src="小埋.mp3" type="audio/mpeg">
-                                              你的浏览器不支持音频播放
-                                            
-                                            
-                                            <!-- 播放器UI（修复了样式和结构） -->
-                                            <div style="margin-top:10px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:10px;">
-                                              <button onclick="toggleBGM()" style="padding:8px 16px; border:none; border-radius:6px; background:#ffb6c1; color:#fff; cursor:pointer;">
-                                                播放/暂停
-                                              </button>
-                                              
-                                              <input type="range" id="progressBar" min="0" max="100" value="0" style="width:200px; cursor:pointer; accent-color:#ffb6c1;">
-                                              
-                                              <span id="timeDisplay" style="font-size:14px; color:#666;">00:00 / 00:00</span>
-                                              
-                                              <input type="range" id="volumeBar" min="0" max="100" value="70" style="width:80px; cursor:pointer; accent-color:#ffb6c1;">
-                                            </div>
-                                            
-                                            <script>
-                                            const audio = document.getElementById('bgm');
-                                            const progressBar = document.getElementById('progressBar');
-                                            const volumeBar = document.getElementById('volumeBar');
-                                            const timeDisplay = document.getElementById('timeDisplay');
-                                            
-                                            // 初始化音量
-                                            audio.volume = 0.7;
-                                            
-                                            // 播放/暂停
-                                            function toggleBGM() {
-                                              if (audio.paused) {
-                                                audio.play();
-                                              } else {
-                                                audio.pause();
-                                              }
-                                            }
-                                            
-                                            // 更新进度条和时间
-                                            audio.addEventListener('timeupdate', () => {
-                                              const current = audio.currentTime;
-                                              const duration = audio.duration || 0;
-                                              const percent = (current / duration) * 100;
-                                              progressBar.value = percent || 0;
-                                              
-                                              // 格式化时间
-                                              const format = t => Math.floor(t/60).toString().padStart(2,'0') + ':' + Math.floor(t%60).toString().padStart(2,'0');
-                                              timeDisplay.textContent = `${format(current)} / ${format(duration)}`;
-                                            });
-                                            
-                                            // 点击进度条跳转
-                                            progressBar.addEventListener('input', () => {
-                                              const duration = audio.duration;
-                                              if (duration) {
-                                                audio.currentTime = (progressBar.value / 100) * duration;
-                                              }
-                                            });
-                                            
-                                            // 音量控制
-                                            volumeBar.addEventListener('input', () => {
-                                              audio.volume = volumeBar.value / 100;
-                                            });
-                                            </script>
+                        <!-- 音频元素（已闭合） -->
+                        <audio id="bgm" loop>
+                          <source src="小埋.mp3" type="audio/mpeg">
+                          你的浏览器不支持音频播放
+                        </audio>
+                        
+                        <!-- 播放器UI -->
+                        <div style="margin-top:10px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:10px;">
+                          <button onclick="toggleBGM()" style="padding:8px 16px; border:none; border-radius:6px; background:#ffb6c1; color:#fff; cursor:pointer;">
+                            播放/暂停
+                          </button>
+                          
+                          <input type="range" id="progressBar" min="0" max="100" value="0" style="width:200px; cursor:pointer; accent-color:#ffb6c1;">
+                          
+                          <span id="timeDisplay" style="font-size:14px; color:#666;">00:00 / 00:00</span>
+                          
+                          <input type="range" id="volumeBar" min="0" max="100" value="70" style="width:80px; cursor:pointer; accent-color:#ffb6c1;">
+                        </div>
+                        
+                        <script>
+                        const audio = document.getElementById('bgm');
+                        const progressBar = document.getElementById('progressBar');
+                        const volumeBar = document.getElementById('volumeBar');
+                        const timeDisplay = document.getElementById('timeDisplay');
+                        
+                        audio.volume = 0.7;
+                        
+                        function toggleBGM() {
+                          if (audio.paused) {
+                            audio.play();
+                          } else {
+                            audio.pause();
+                          }
+                        }
+                        
+                        audio.addEventListener('timeupdate', () => {
+                          const current = audio.currentTime;
+                          const duration = audio.duration || 0;
+                          const percent = (current / duration) * 100;
+                          progressBar.value = percent || 0;
+                          
+                          const format = t => Math.floor(t/60).toString().padStart(2,'0') + ':' + Math.floor(t%60).toString().padStart(2,'0');
+                          timeDisplay.textContent = `${format(current)} / ${format(duration)}`;
+                        });
+                        
+                        progressBar.addEventListener('input', () => {
+                          const duration = audio.duration;
+                          if (duration) {
+                            audio.currentTime = (progressBar.value / 100) * duration;
+                          }
+                        });
+                        
+                        volumeBar.addEventListener('input', () => {
+                          audio.volume = volumeBar.value / 100;
+                        });
+                        </script>
 
                                     
 
